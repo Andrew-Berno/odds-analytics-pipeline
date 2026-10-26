@@ -1,0 +1,7 @@
+# Local database password. See .env.
+.env
+
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
