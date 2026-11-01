@@ -5,8 +5,13 @@ services:
       POSTGRES_DB: odds
       POSTGRES_USER: odds
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # Read by db/migrations/900_app_login.sh during first-time init.
+      LEDGER_APP_PASSWORD: ${LEDGER_APP_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      # Postgres runs the files in this directory, in lexicographic order,
+      # on first init of an empty data volume. Subfolders are ignored.
+      # 900_ sorts after 001_ and 002_.
       - ./db/migrations:/docker-entrypoint-initdb.d
     ports:
       - "127.0.0.1:5433:5432"
